@@ -1,6 +1,6 @@
-Flask-SQLAlchemy
-Flask[async]
-plotly
-pandas
-aiohttp
-gunicorn
+Flask-SQLAlchemy<4
+Flask[async]<4
+plotly<6
+pandas<3
+aiohttp<4
+gunicorn<24

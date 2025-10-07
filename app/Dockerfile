@@ -7,7 +7,7 @@ ENV SKIP_CURRENT_YEAR=true
 WORKDIR /app
 COPY requirements.txt .
 
-RUN pip install $PROXY --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
 COPY utils/ utils/
 COPY static/ static/
 COPY templates/ templates/
