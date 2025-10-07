@@ -1,0 +1,21 @@
+
+# This is just an example configuration
+services:
+
+  pubmedimpactnormalization:
+    image: pubmedimpactnormalization:latest
+    restart: "no"
+    ports:
+      - 127.0.0.1:8080:8080
+    volumes:
+      - pubmedimpactnormalization_volume:/instance
+      
+    environment:
+      SET_SETTINGS: false
+      NCBI_RATE_LIMIT: 3
+      AGGREGATION_YEARS: 1
+      NCBI_API_KEY:
+
+volumes:
+  pubmedimpactnormalization_volume:
+    external: false

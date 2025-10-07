@@ -1,0 +1,139 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f5f5f5;
+}
+
+.sidebar {
+  height: 100%;
+  width: 15%;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  right: 0;
+  background-color: rgb(204, 204, 204);
+  overflow-x: hidden;
+  padding-top: 20px;
+}
+
+#settings-button,
+#search-button {
+  background-color: #0a0a23;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 10px;
+  margin: 10px;
+  min-height: 10px;
+  width: 90%;
+  font-size: 1.2rem;
+  cursor: pointer;
+  margin-left: 5%;
+}
+
+#settings-button:hover,
+#search-button:hover {
+  background-color: #1a1a3d;
+}
+
+#settings {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+  margin-top: 100px;
+}
+
+footer {
+  padding: 30px;
+  width: 100%;
+  margin-left: 25%;
+  position: fixed;
+  bottom: 0%;
+  font-size: large;
+}
+
+#links {
+  padding: 10px;
+  margin-top: 5%;
+  margin-right: auto;
+  margin-left: auto;
+  width: fit-content;
+  font-size: larger;
+  text-align: center;
+}
+
+.form__label {
+  font-size: 1.2rem;
+  margin-left: 2rem;
+  margin-top: 0.7rem;
+  display: block;
+  transition: all 0.3s;
+  transform: translateY(0rem);
+}
+
+
+.main {
+  margin-right: 200px;
+  padding: 20px;
+  width: 85%;
+}
+
+#chart {
+  margin-top: 50px;
+  width: 90%;
+  display: flex;
+  justify-content: center;
+}
+
+#no-data, #loading {
+  margin-top: 50px;
+  width: 50%;
+  justify-content: center;
+}
+
+.main h2 {
+  font-family: 'Roboto', sans-serif;
+  font-size: 2rem;
+  text-align: center;
+}
+#chart h3 {
+  font-family: 'Roboto', sans-serif;
+  font-size: 1.5rem;
+  text-align: left;
+}
+#chart p {
+  font-family: 'Roboto', sans-serif;
+  font-size: 1rem;
+  text-align: left;
+  width: 30%;
+}
+
+
+input {
+  font-size: 1.2rem;
+  width: 70%;
+  color: #333;
+  margin: 0 auto;
+  padding: 1.5rem 2rem;
+  border-radius: 0.5rem;
+  border: none;
+  display: block;
+  border-bottom: 0.3rem solid transparent;
+  transition: all 0.3s;
+  align-items: center;
+  display: grid;
+  margin-bottom: 20px;
+}
+
+input:focus {
+  outline: none;
+  border-bottom: 0.3rem solid #31008d;
+}
+
+#search-button {
+  margin-top: 20px;
+}
+
+#search-button:disabled {
+  background-color: #565656;
+}

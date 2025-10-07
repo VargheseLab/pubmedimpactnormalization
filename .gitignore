@@ -1,0 +1,42 @@
+
+# Don't share data on GitHub
+app/instance/*
+*.db
+
+# Ignore generated files
+static/fonts
+static/icons
+*.log
+
+# Models and Logs
+pretrained
+workdir
+**/**/*.pth
+**/**/*.json
+.ipynb_checkpoints/
+*.ipynb
+**/*.onnx
+
+# Installations
+yarn.lock
+node_modules
+*.wasm
+*.bundle.js*
+
+# Dev Files
+*hot-update.js
+**/__pycache__
+
+# Ignore other Repos we use for inspiration
+cvat
+cvatt
+CVATTestImages
+iog
+SAMDemo
+SegmentAnything
+
+# Others
+
+
+# VS Extensions
+.VSCodeCounter

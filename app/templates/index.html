@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+    <meta name="theme-color" content="#000000" />
+    <meta name="description" content="Pubmed Normalization" />
+
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <link rel="stylesheet" href="static/styles.css">
+
+    <title>Pubmed Impact Normalization</title>
+  </head>
+  <body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div class="sidebar">
+
+      <button onclick="show_settings();" id="settings-button">
+        Settings
+      </button>
+      <form id="input" name="input">
+
+        <label for="query_term" class="form__label">Query Term</label>
+        <input type="text" name="query_term" id="query_term" required value="brain tumor" minlength="3">
+        <label for="ref_term" class="form__label">Reference Term</label>
+        <input type="text" name="ref_term" id="ref_term" required value="science" minlength="3">
+        <button id="search-button" onclick="submitForm()">
+            Search
+        </button>
+
+        <div id="settings" style="display: none;">
+          <label for="api_key" class="form__label">API Key</label>
+          <input type="text" name="api_key" id="api_key" minlength="3">
+          <label for="rate_limit" class="form__label">Rate Limit</label>
+          <input type="number" name="rate_limit" id="rate_limit" value="3" min="3" max="50">
+          <label for="agg_years" class="form__label">Aggregation Years</label>
+          <input type="number" name="agg_years" id="agg_years" value="1" min="1" max="3">
+        </div>
+        
+      </form>
+      <script>
+        function show_settings(){
+          settings_div = document.getElementById("settings");
+          if (settings_div.style.display == "block"){
+            settings_div.style.display = "none";
+          } else {
+            settings_div.style.display = "block";
+          }
+          
+        }
+        
+        fetch('/settings', {
+              method: "GET",
+        }).then(response => response.json())
+        .then(response => {
+          var button = document.getElementById('settings-button');
+          if (response) {
+            button.disabled = true;
+            button.style.display = "none";
+          } else {
+            button.disabled = false;
+            button.style.display = "block";
+          }
+        })
+        
+        async function submitForm() {
+            const loading = document.getElementById("loading");
+            const noData = document.getElementById("no-data");
+            const searchButton = document.getElementById("search-button");
+
+            Plotly.purge('chart')
+            loading.style.display = 'block';
+            noData.style.display = 'none';
+            searchButton.disabled = true;
+
+            fetch('/api', {
+                method: "POST",
+                body: new FormData(document.getElementById('input'))
+            }).then(response => response.json())
+            .then(response => {
+              loading.style.display = 'none';
+              searchButton.disabled = false;
+              Plotly.newPlot('chart', response)
+            })
+          }
+
+      </script>
+      
+      <div id="links">
+        <a target="_blank" href="https://github.com/VargheseLab/pubmedimpactnormalization">GitLab</a><br>
+        <a target="_blank" href="https://www.med.ovgu.de/impressum.html">Legal Disclosure</a>
+      </div>
+
+    </div>
+    <div class="main" style="margin: 5%;">
+      <h2>PubMed Normalization</h2>
+      <div id="chart">
+      </div>
+      <div id="no-data">
+        <h3>No Chart yet</h3><br>
+        <p>
+          To use this tool, enter a query- and a reference-term in the input fields and click “Search”.<br>
+          The PubMed normalization computes a normalized score that can be used to compare the relative importance of the query term in the context of the reference term over the years.  
+        </p>
+      </div>
+      <div id="loading" style="display: none">Generating Chart ...</div>
+    </div>
+    
+    <script>
+      window.onbeforeunload = function() {
+            
+            var query_term = document.getElementById("query_term").value;
+            var ref_term = document.getElementById("ref_term").value;
+            var api_key = document.getElementById("api_key").value;
+            var rate_limit = document.getElementById("rate_limit").value;
+            var agg_years = document.getElementById("agg_years").value;
+
+            localStorage.setItem("query_term", query_term);
+            localStorage.setItem("ref_term", ref_term);
+            localStorage.setItem("api_key", api_key);
+            localStorage.setItem("rate_limit", rate_limit);
+            localStorage.setItem("agg_years", agg_years);
+        }
+
+        window.onload = function() {
+          var query_term_val = localStorage.getItem("query_term");
+          var ref_term_val = localStorage.getItem("ref_term");
+          var api_key_val = localStorage.getItem("api_key");
+          var rate_limit_val = localStorage.getItem("rate_limit");
+          var agg_years_val = localStorage.getItem("agg_years");
+
+          var query_term = document.getElementById("query_term");
+          var ref_term = document.getElementById("ref_term");
+          var api_key = document.getElementById("api_key");
+          var rate_limit = document.getElementById("rate_limit");
+          var agg_years = document.getElementById("agg_years");
+
+          if (query_term !== null & query_term_val != null) query_term.value = query_term_val;
+          if (ref_term !== null & ref_term_val != null) ref_term.value = ref_term_val;
+          if (api_key !== null & api_key_val != null) api_key.value = api_key_val;
+          if (rate_limit !== null & rate_limit_val != null) rate_limit.value = rate_limit_val;
+          if (agg_years !== null & agg_years_val != null) agg_years.value = agg_years_val;
+        }
+    </script>
+    
+  </body>
+  <footer>
+      Developed and maintained by the <a style="white-space: nowrap" target="_blank" href="https://imds.med.ovgu.de/">Institute of Medical Data Science</a>, Otto-von-Guericke University Magdeburg
+  </footer>
+</html>
